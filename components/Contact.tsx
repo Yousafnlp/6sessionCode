@@ -123,7 +123,7 @@ export default function Contact() {
                   <FormLabel className="text-white">Gender</FormLabel>
                   <FormControl>
                     <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-wrap gap-4">
-                      {["male", "female", "other"].map((gender) => (
+                      {["male", "female"].map((gender) => (
                         <FormItem key={gender} className="flex items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem value={gender} className="border-gold/20 text-gold" />
