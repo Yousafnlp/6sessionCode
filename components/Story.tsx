@@ -159,6 +159,19 @@ export default function About() {
               </Link>
             </Button>
           </motion.div>
+
+          <motion.div
+
+initial={{ opacity: 0, y: 20 }}
+whileInView={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.5, delay: 0.5 }}
+viewport={{ once: true }}
+            className="mt-2 text-xl sm:text-2xl font-bold text-gold absolute"
+
+          >
+                <span>12,880/- PKR</span>
+          </motion.div>
+
           </motion.div>
         </div>
       </div>

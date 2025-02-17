@@ -89,10 +89,20 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="mt-4 text-xl sm:text-2xl font-bold text-gold"
+
+          >
+                <span>12,880/- PKR</span>
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="mt-12 text-md text-white max-w-md mx-auto"
+            className="mt-5 text-md text-white max-w-md mx-auto"
           >
             Price: <s>30,000/-</s>&#10060; now 12,880/- &#x2705; only
           </motion.div>
