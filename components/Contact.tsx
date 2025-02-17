@@ -52,6 +52,7 @@ export default function Contact() {
       let result = await response.json();
       if (result?.success) {
         toast.success('Submitted Successfully')
+        form.reset()
       } else {
         toast.error(result?.message)
       }
