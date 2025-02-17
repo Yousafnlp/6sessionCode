@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
+import { toast } from "sonner"
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -17,9 +18,9 @@ const formSchema = z.object({
     .regex(/^\d+$/, "Contact number must be numeric"),
   dob: z.string({
     required_error: "Please select your date of birth",
-  }).regex(/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/, "Date must be in DD-MM-YYYY format")
-  ,
-  gender: z.enum(["male", "female", "other"], {
+  })
+    .regex(/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/, "Date must be in DD-MM-YYYY format"),
+  gender: z.enum(["male", "female"], {
     required_error: "Please select your gender",
   }),
   course: z.enum(["consultation", "sessions"], {
@@ -49,9 +50,13 @@ export default function Contact() {
       });
 
       let result = await response.json();
-      if (result)
-        console.log(result)
-    } catch (error) {
+      if (result?.success) {
+        toast.success('Submitted Successfully')
+      } else {
+        toast.error(result?.message)
+      }
+    } catch (err: any) {
+      toast.error(err);
     }
   }
 
@@ -131,6 +136,32 @@ export default function Contact() {
                   <FormMessage />
                 </FormItem>
               )} />
+
+              <FormField
+                control={form.control}
+                name="course"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-white">Select Your Concern</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="bg-navy-50/50 border-gold/20 text-white">
+                          <SelectValue placeholder="Select your concern" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-navy border-gold/20">
+                        <SelectItem value="consultation" className="text-white">
+                          Free Call Consultation
+                        </SelectItem>
+                        <SelectItem value="sessions" className="text-white">
+                          Register for 6 Sessions Series
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <Button type="submit" className="w-full bg-gold hover:bg-gold-light text-navy font-medium text-[16px] transition-all duration-300 transform hover:scale-[1.02]">
                 Submit Registration
